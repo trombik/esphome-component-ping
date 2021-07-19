@@ -1,0 +1,41 @@
+substitutions:
+  my_name: ping
+
+esphome:
+  name: ${my_name}
+  platform: ESP8266
+  board: nodemcuv2
+  includes:
+    - include/ping.h
+  libraries:
+    - https://github.com/akaJes/AsyncPing#95ac7e4
+
+logger:
+
+api:
+
+web_server:
+
+ota:
+  password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: Ping
+    password: !secret wifi_ap_password
+
+captive_portal:
+
+sensor:
+  - platform: custom
+    lambda: |-
+      auto ping_sensor = new PingSensor();
+      App.register_component(ping_sensor);
+      return {ping_sensor->packet_loss_sensor, ping_sensor->latency_sensor};
+    sensors:
+      - name: Packet loss
+        unit_of_measurement: "%"
+      - name: Latency
+        unit_of_measurement: ms
