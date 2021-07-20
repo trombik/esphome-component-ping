@@ -34,3 +34,9 @@ jobs:
       - name: Run flake8
         run: |
           pipenv run flake8 components
+
+    - name: Run clang-format style check
+      uses: jidicula/clang-format-action@v3.4.0
+      with:
+        clang-format-version: '11'
+        check-path: 'components'
