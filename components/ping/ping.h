@@ -1,26 +1,20 @@
-#include "esphome.h"
+#pragma once
+
 #include "AsyncPing.h"
 
-#define TARGET "8.8.8.8"
-#define TIMEOUT (1000)
-#define N_PACKET (13)
-#define TIME_POLLING_SEC (120)
+#include "esphome/components/sensor/sensor.h"
 
 #define EACH_RESULT true
 #define END false
 #define TAG "ping"
 
-class PingSensor : public PollingComponent, public Sensor {
-    public:
-        float latest_loss = -1;
-        int latest_latency = -1;
-        int total_success_time;
-        AsyncPing ping;
+namespace esphome {
+namespace ping {
 
+class PingSensor : public sensor::Sensor, public PollingComponent {
+    public:
         Sensor *packet_loss_sensor = new Sensor();
         Sensor *latency_sensor = new Sensor();
-
-        PingSensor() : PollingComponent(TIME_POLLING_SEC * 1000) {}
 
         /* the sensor must be started after connecting WiFi */
         float get_setup_priority() const override { return esphome::setup_priority::AFTER_WIFI; }
@@ -31,14 +25,14 @@ class PingSensor : public PollingComponent, public Sensor {
                     if (response.answer) {
                         ESP_LOGI(TAG, "%d bytes from %s: icmp_seq=%d ttl=%d time=%d ms",
                                 response.size,
-                                TARGET,
+                                target.c_str(),
                                 response.icmp_seq,
                                 response.ttl,
                                 response.time);
 
                         this->incr_total_success_time(response.time);
                     } else {
-                        ESP_LOGI(TAG, "no reply from %s", TARGET);
+                        ESP_LOGI(TAG, "no reply from %s", target.c_str());
                     }
                     return false;
                     });
@@ -65,7 +59,7 @@ class PingSensor : public PollingComponent, public Sensor {
                         return true;
                     }
             );
-            ping.begin(TARGET, N_PACKET, TIMEOUT);
+            ping.begin(target.c_str(), n_packet, timeout);
         }
 
         void update() override {
@@ -75,13 +69,13 @@ class PingSensor : public PollingComponent, public Sensor {
             loss = this->get_latest_loss();
             latency_ms = this->get_latest_latency();
 
-            if (loss >= 0) {
-                packet_loss_sensor->publish_state(loss);
+            if (loss >= 0 && this->packet_loss_sensor_ != nullptr) {
+                packet_loss_sensor_->publish_state(loss);
             }
-            if (latency_ms >= 0) {
-                latency_sensor->publish_state(latency_ms);
+            if (latency_ms >= 0 && this->latency_sensor_ != nullptr) {
+                latency_sensor_->publish_state((float)latency_ms / 1000);
             }
-            ping.begin(TARGET, N_PACKET, TIMEOUT);
+            ping.begin(target.c_str(), n_packet, timeout);
         }
 
         int get_latest_latency() {
@@ -90,6 +84,26 @@ class PingSensor : public PollingComponent, public Sensor {
 
         float get_latest_loss() {
             return latest_loss;
+        }
+
+        void set_timeout(uint32_t timeout_ms) {
+            timeout = timeout_ms;
+        }
+
+        void set_target(const std::string address) {
+            target = address;
+        }
+
+        void set_n_packet(uint32_t n) {
+            n_packet = n;
+        }
+
+        void set_packet_loss_sensor(sensor::Sensor *packet_loss_sensor) {
+            packet_loss_sensor_ = packet_loss_sensor;
+        }
+
+        void set_latency_sensor(sensor::Sensor *latency_sensor) {
+            latency_sensor_ = latency_sensor;
         }
 
     private:
@@ -108,4 +122,18 @@ class PingSensor : public PollingComponent, public Sensor {
         void incr_total_success_time(int time) {
             total_success_time += time;
         }
+    protected:
+        float latest_loss = -1;
+        int latest_latency = -1;
+        int total_success_time;
+        std::string target = "8.8.8.8";
+        int timeout = 1000;
+        int n_packet = 13;
+
+        AsyncPing ping;
+        sensor::Sensor *packet_loss_sensor_{nullptr};
+        sensor::Sensor *latency_sensor_{nullptr};
 };
+
+}  // namespace ping
+}  // namespace esphome

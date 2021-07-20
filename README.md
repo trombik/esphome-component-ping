@@ -1,15 +1,13 @@
 # `esphome-component-ping`
 
-A custom `esphome` sensor component that sends and receives `ICMP`.
+A `esphome` sensor component that sends and receives `ICMP`.
 
-This is my first attempt to learn `esphome` custom sensor component.
+This is my first attempt to learn `esphome` sensor component.
 
 I have almost zero `C++` knowledge. You have been warned.
 
 ## Bugs
 
-* the target is hard-coded
-* various configuration macros are hard-coded
 * the target must be IP address
 * multiple targets are not supported
 

@@ -1,18 +1,14 @@
 substitutions:
-  my_name: ping
+  my_name: ping_sensor
 
 esphome:
   name: ${my_name}
   platform: ESP8266
   board: nodemcuv2
-  includes:
-    - include/ping.h
   libraries:
     - https://github.com/akaJes/AsyncPing#95ac7e4
 
 logger:
-
-api:
 
 web_server:
 
@@ -28,14 +24,18 @@ wifi:
 
 captive_portal:
 
+external_components:
+  - source:
+      type: local
+      path: ../components
+
 sensor:
-  - platform: custom
-    lambda: |-
-      auto ping_sensor = new PingSensor();
-      App.register_component(ping_sensor);
-      return {ping_sensor->packet_loss_sensor, ping_sensor->latency_sensor};
-    sensors:
-      - name: Packet loss
-        unit_of_measurement: "%"
-      - name: Latency
-        unit_of_measurement: ms
+  - platform: ping
+    ip_address: 8.8.8.8
+    num_attempts: 17
+    timeout: 1sec
+    loss:
+      name: Packet loss
+    latency:
+      name: Latency
+      accuracy_decimals: 3
