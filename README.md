@@ -44,6 +44,10 @@ Compile `ping.yaml` in the python virtual environment.
 esphome compile config/ping.yaml
 ```
 
+## Example
+
+See [config/ping.yaml](config/ping.yaml).
+
 ## Log
 
 ```console
