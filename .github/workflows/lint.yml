@@ -25,12 +25,12 @@ jobs:
 
       - name: Run black
         run: |
-          black --verbose --check  components
+          pipenv run black --verbose --check  components
 
       - name: Run pylint
         run: |
-          pylint -f parseable --persistent=n --rcfile=pylintrc components
+          pipenv run pylint -f parseable --persistent=n --rcfile=pylintrc components
 
       - name: Run flake8
         run: |
-          flake8 components
+          pipenv run flake8 components
