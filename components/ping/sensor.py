@@ -17,7 +17,7 @@ DEPENDENCIES = ["network"]
 
 ping_ns = cg.esphome_ns.namespace("ping")
 
-PingSensor = ping_ns.class_("PingSensor", sensor.Sensor, cg.PollingComponent)
+PingSensor = ping_ns.class_("PingSensorESP8266", sensor.Sensor, cg.PollingComponent)
 
 
 def validate_timeout(n):
