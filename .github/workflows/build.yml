@@ -27,3 +27,4 @@ jobs:
         run: |
           cp config/secrets.yaml.dist config/secrets.yaml
           pipenv run esphome compile config/ping.yaml
+          pipenv run esphome compile config/ping-esp32.yaml

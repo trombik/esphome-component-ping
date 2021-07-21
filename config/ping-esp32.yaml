@@ -3,8 +3,8 @@ substitutions:
 
 esphome:
   name: ${my_name}
-  platform: ESP8266
-  board: nodemcuv2
+  platform: ESP32
+  board: lolin_d32
   libraries:
     - https://github.com/trombik/AsyncPing#a943d9c
 
