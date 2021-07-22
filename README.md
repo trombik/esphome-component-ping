@@ -11,6 +11,10 @@ I have almost zero `C++` knowledge. You have been warned.
 * the target must be IP address
 * multiple targets are not supported
 
+## Status
+
+* Works on both `esp8266` and `esp32`
+
 ## Requirements
 
 * `python` 3.8
