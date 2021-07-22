@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#ifdef ARDUINO_ARCH_ESP32
+
+#include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include "freertos/FreeRTOS.h"
@@ -29,7 +32,7 @@
 #include "lwip/netdb.h"
 #include "lwip/sockets.h"
 #include "esp_log.h"
-#include "ping/ping_sock.h"
+#include "ping_sock.h"
 
 const static char *TAG = "ping_sock";
 
@@ -268,6 +271,10 @@ esp_err_t esp_ping_new_session(const esp_ping_config_t *config, const esp_ping_c
     }
 #endif
     PING_CHECK(ep->sock > 0, "create socket failed: %d", err, ESP_FAIL, ep->sock);
+#if 0
+    /* disable code that does not build with esphome.
+     * ifreq does not exist in esp-idf 3.x, which esphome uses */
+
     /* set if index */
     if(config->interface) {
         struct ifreq iface;
@@ -278,6 +285,7 @@ esp_err_t esp_ping_new_session(const esp_ping_config_t *config, const esp_ping_c
           goto err;
         }
     }
+#endif
     struct timeval timeout;
     timeout.tv_sec = config->timeout_ms / 1000;
     timeout.tv_usec = (config->timeout_ms % 1000) * 1000;
@@ -407,3 +415,4 @@ esp_err_t esp_ping_get_profile(esp_ping_handle_t hdl, esp_ping_profile_t profile
 err:
     return ret;
 }
+#endif

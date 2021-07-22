@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#ifdef ARDUINO_ARCH_ESP32
+
 #pragma once
 
 #ifdef __cplusplus
@@ -168,4 +170,6 @@ esp_err_t esp_ping_get_profile(esp_ping_handle_t hdl, esp_ping_profile_t profile
 
 #ifdef __cplusplus
 }
+#endif
+
 #endif
