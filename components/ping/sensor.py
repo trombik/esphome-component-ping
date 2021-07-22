@@ -12,12 +12,18 @@ from esphome.const import (
     ICON_EMPTY,
     DEVICE_CLASS_EMPTY,
 )
+from esphome.core import CORE
 
 DEPENDENCIES = ["network"]
 
 ping_ns = cg.esphome_ns.namespace("ping")
 
-PingSensor = ping_ns.class_("PingSensor", sensor.Sensor, cg.PollingComponent)
+if CORE.is_esp8266:
+    PingSensor = ping_ns.class_("PingSensorESP8266", sensor.Sensor, cg.PollingComponent)
+elif CORE.is_esp32:
+    PingSensor = ping_ns.class_("PingSensorESP32", sensor.Sensor, cg.PollingComponent)
+else:
+    raise NotImplementedError
 
 
 def validate_timeout(n):

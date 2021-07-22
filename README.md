@@ -50,6 +50,8 @@ See [config/ping.yaml](config/ping.yaml).
 
 ## Log
 
+### `esp8266`
+
 ```console
 INFO Reading configuration config/ping.yaml...
 INFO Starting log output from ping.local using esphome API
@@ -95,4 +97,40 @@ INFO Successfully connected to ping.local
 [18:31:31][I][ping:037]: 64 bytes from 156.154.100.3: icmp_seq=12 ttl=55 time=43 ms
 [18:31:32][I][ping:037]: 64 bytes from 156.154.100.3: icmp_seq=13 ttl=55 time=41 ms
 [18:31:33][I][ping:063]: packet loss: 0.0 % latency: 40 ms
+```
+
+### `esp32`
+
+```console
+[C][logger:189]: Logger:
+[C][logger:190]:   Level: DEBUG
+[C][logger:191]:   Log Baud Rate: 115200
+[C][logger:192]:   Hardware UART: UART0
+[C][captive_portal:148]: Captive Portal:
+[C][web_server:136]: Web Server:
+[C][web_server:137]:   Address: ping_sensor.local:80
+[C][ota:029]: Over-The-Air Updates:
+[C][ota:030]:   Address: ping_sensor.local:3232
+[C][ota:032]:   Using Password.
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=1 ttl=117 time=448 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=2 ttl=117 time=42 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=3 ttl=117 time=42 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=4 ttl=117 time=39 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=5 ttl=117 time=41 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=6 ttl=117 time=40 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=7 ttl=117 time=40 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=8 ttl=117 time=43 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=9 ttl=117 time=40 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=10 ttl=117 time=41 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=11 ttl=117 time=42 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=12 ttl=117 time=42 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=13 ttl=117 time=45 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=14 ttl=117 time=43 ms
+[I][ping_esp32:063]: 64 bytes from 8.8.8.8 icmp_seq=15 ttl=117 time=40 ms
+[I][ping_esp32:102]: From 8.8.8.8 icmp_seq=16 timeout
+[I][ping_esp32:102]: From 8.8.8.8 icmp_seq=17 timeout
+[I][ping_esp32:084]: --- 8.8.8.8 ping statistics ---
+[I][ping_esp32:089]: 17 packets transmitted, 15 received, 11% packet loss, total time 3028ms avg time 68ms
+[D][sensor:117]: 'Packet loss': Sending state 11.00000 % with 0 decimals of accuracy
+[D][sensor:117]: 'Latency': Sending state 0.06800 s with 3 decimals of accuracy
 ```
