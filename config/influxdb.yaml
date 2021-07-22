@@ -1,0 +1,69 @@
+---
+# An example to send results to influxdb.
+substitutions:
+  my_name: influxdb-example
+  my_location: somewhere
+  influxdb_host: influxdb.example.org
+  influxdb_port: "8086"
+  influxdb_user: !secret influxdb_user
+  influxdb_password: !secret influxdb_password
+  influxdb_database: my_database
+  target_ip_address: 8.8.4.4
+
+globals:
+  - id: buf
+    type: char[512]
+    restore_value: no
+    initial_value: ""
+
+esphome:
+  name: ${my_name}
+  platform: ESP8266
+  board: nodemcuv2
+  libraries:
+    - https://github.com/akaJes/AsyncPing#95ac7e4
+logger:
+ota:
+  password: !secret ota_password
+api:
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: ${my_name}
+    password: !secret wifi_ap_password
+external_components:
+  - source:
+      type: local
+      path: ../components
+
+http_request:
+  useragent: esphome/${my_name}
+  timeout: 10s
+
+sensor:
+  - platform: ping
+    ip_address: ${target_ip_address}
+    num_attempts: 17
+    timeout: 1sec
+    loss:
+      name: Packet loss
+      id: loss
+      on_value:
+        then:
+          - http_request.post:
+              url: "http://${influxdb_host}:${influxdb_port}/write?db=${influxdb_database}&u=${influxdb_user}&p=${influxdb_password}"
+              body: !lambda |-
+                snprintf(id(buf), sizeof(id(buf)), "ping,location=${my_location},host=${my_name},url=${target_ip_address} percent_packet_loss=%0.1f", id(loss).state);
+                return id(buf);
+    latency:
+      name: Latency
+      accuracy_decimals: 3
+      id: latency
+      on_value:
+        then:
+          - http_request.post:
+              url: "http://${influxdb_host}:${influxdb_port}/write?db=${influxdb_database}&u=${influxdb_user}&p=${influxdb_password}"
+              body: !lambda |-
+                snprintf(id(buf), sizeof(id(buf)), "ping,location=${my_location},host=${my_name},url=${target_ip_address} average_response_ms=%0.1f", id(latency).state * 1000);
+                return id(buf);
