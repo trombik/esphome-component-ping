@@ -11,6 +11,10 @@ I have almost zero `C++` knowledge. You have been warned.
 * the target must be IP address
 * multiple targets are not supported
 
+## Status
+
+* Works on both `esp8266` and `esp32`
+
 ## Requirements
 
 * `python` 3.8
@@ -42,6 +46,47 @@ Compile `ping.yaml` in the python virtual environment.
 
 ```console
 esphome compile config/ping.yaml
+```
+
+## Usage in your project
+
+See [External Components](https://esphome.io/components/external_components.html).
+
+### With `local`
+
+Create `components` directory in your project root.
+
+```console
+mkdir components
+```
+
+Clone, or `submodule`, the repository in the `components` directory.
+
+```console
+cd components
+git clone https://github.com/trombik/esphome-component-ping.git
+```
+
+In the configuration file, set `path` in `external_components`.
+
+```yaml
+external_components:
+  - source:
+      type: local
+      path: ../components/esphome-component-ping/components
+```
+
+### With `git`
+
+Add `external_components` to the configuration file. `ref` should be git `ref`;
+tag, branch, or commit.
+
+```yaml
+external_components:
+  - source:
+      type: git
+      path: https://github.com/trombik/esphome-component-ping
+      ref: main
 ```
 
 ## Example
