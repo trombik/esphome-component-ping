@@ -25,6 +25,7 @@ elif CORE.is_esp32:
 else:
     raise NotImplementedError
 
+
 def validate_timeout(n):
     n = cv.positive_time_period_microseconds(n)
     if n.total_seconds > 8:
