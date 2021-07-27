@@ -2,6 +2,8 @@
 
 A `esphome` sensor component that sends and receives `ICMP`.
 
+![Visualization of ICMP latency and packet loss on ESP8266](assets/esp8266.png "Visualization of ICMP latency and packet loss on ESP8266")
+
 This is my first attempt to learn `esphome` sensor component.
 
 I have almost zero `C++` knowledge. You have been warned.
@@ -14,6 +16,8 @@ I have almost zero `C++` knowledge. You have been warned.
 ## Status
 
 * Works on both `esp8266` and `esp32`
+* the component works fine on `esp8266`. The longest uptime so far is more
+  than 3 days.
 
 ## Requirements
 
