@@ -1,6 +1,9 @@
 # `esphome-component-ping`
 
-A `esphome` sensor component that sends and receives `ICMP`.
+A `esphome` sensor component that sends and receives `ICMP`. It implements two
+sensors: `loss` and `latency`. `loss` publishes packet loss rate of an ICMP
+session, and `latency` publishes arithmetic mean of latencies in an ICMP
+session.
 
 ![Visualization of ICMP latency and packet loss on ESP8266](assets/esp8266.png "Visualization of ICMP latency and packet loss on ESP8266")
 
