@@ -13,6 +13,18 @@ I have almost zero `C++` knowledge. You have been warned.
 * the target must be IP address
 * multiple targets are not supported
 
+## Limitations
+
+### The device sticks to weak `BSSID`
+
+`esphome` does not implement roaming between WiFi APs (see [Issue 732](https://github.com/esphome/feature-requests/issues/731))
+This means the device does not switch to better WiFi coverage, e.g. when the
+closest AP is not available, the device connects to another AP available,
+and will not switch to the closest one even when the closest AP is back
+online again. This is often okay, but sometimes becomes an issue. The only
+workaround is to reboot the device. Be sure to add [`restart` component](https://esphome.io/components/switch/restart.html)
+to the device when you have multiple WiFi APs.
+
 ## Status
 
 * Works on both `esp8266` and `esp32`
