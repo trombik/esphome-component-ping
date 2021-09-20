@@ -115,7 +115,7 @@ See [config/ping.yaml](config/ping.yaml).
 If you want to take actions on sensor values, see [config/influxdb.yaml](config/influxdb.yaml).
 In the example, `on_value` runs an automation (sending the value to `influxdb`
 whenever a value is available). Use
-`on_value_range` ([the documentation](https://esphome.io/components/sensor/index.html#on-value-range)
+`on_value_range` ([the documentation](https://esphome.io/components/sensor/index.html#on-value-range))
 when the sensor value is above, below, or both.
 
 ## Log
