@@ -72,7 +72,7 @@ esphome compile config/ping.yaml
 See [External Components](https://esphome.io/components/external_components.html).
 
 Note that, for `esp8266`, you need to include a library
-[`AsyncPing`](https: //github.com/akaJes/AsyncPing). Make sure your config
+[`AsyncPing`](https://github.com/akaJes/AsyncPing). Make sure your config
 includes it by `libraries`.
 
 ```yaml
