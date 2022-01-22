@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-esphome = "1.19.4"
+esphome = "2022.1.0"
 
 [dev-packages]
 pylint = "2.8.2"

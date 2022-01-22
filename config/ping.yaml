@@ -6,6 +6,7 @@ esphome:
   platform: ESP8266
   board: nodemcuv2
   libraries:
+    - ESP8266WiFi
     - https://github.com/akaJes/AsyncPing#95ac7e4
 
 logger:
