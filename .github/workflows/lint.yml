@@ -36,8 +36,8 @@ jobs:
           pipenv run flake8 components
 
       - name: Run clang-format style check
-        uses: jidicula/clang-format-action@v3.4.0
+        uses: jidicula/clang-format-action@v4.5.0
         with:
           clang-format-version: '11'
           check-path: 'components'
-          exclude-regex: components/ping/ping_sock.[ch]
+          exclude-regex: 'ping/ping_sock.[ch]'
