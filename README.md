@@ -75,12 +75,16 @@ Note that, for `esp8266`, you need to include a library
 [`AsyncPing`](https://github.com/akaJes/AsyncPing). Make sure your config
 includes it by `libraries`.
 
+Since `2021.11.4` release, `esphome` disabled `lib_ldf_mode` in `platformio`.
+`ESP8266WiFi`, which `AsyncPing` depends on, must be listed on `libraries`.
+
 ```yaml
 esphome:
   name: ${my_name}
   platform: ESP8266
   board: nodemcuv2
   libraries:
+    - ESP8266WiFi
     - https://github.com/akaJes/AsyncPing#95ac7e4
 ```
 
