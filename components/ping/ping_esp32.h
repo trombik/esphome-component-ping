@@ -20,6 +20,7 @@
 #include "lwip/inet.h"
 #include "lwip/sockets.h"
 #include "ping_sock.h"
+#include "esp_err.h"
 
 #include "esphome/components/sensor/sensor.h"
 
@@ -29,15 +30,12 @@ namespace esphome {
 namespace ping {
 class PingSensorESP32 : public PingSensor {
  public:
-  void setup() override {
-    init_ping();
-    esp_ping_new_session(&ping_config, &cbs, &ping);
-    esp_ping_start(ping);
-  }
+  void setup() override { init_ping(); }
 
   void update() override {
     float loss;
     int latency_ms;
+    esp_err_t err = ESP_FAIL;
 
     loss = this->get_latest_loss();
     latency_ms = this->get_latest_latency();
@@ -48,7 +46,14 @@ class PingSensorESP32 : public PingSensor {
     if (latency_ms >= 0 && this->latency_sensor_ != nullptr) {
       latency_sensor_->publish_state((float) latency_ms / 1000);
     }
-    esp_ping_new_session(&ping_config, &cbs, &ping);
+    err = esp_ping_new_session(&ping_config, &cbs, &ping);
+    if (err != ESP_OK) {
+      ESP_LOGE(TAG, "esp_ping_new_session: %s", esp_err_to_name(err));
+    }
+    err = esp_ping_start(ping);
+    if (err != ESP_OK) {
+      ESP_LOGE(TAG, "esp_ping_start: %s", esp_err_to_name(err));
+    }
   }
 
  private:
