@@ -16,7 +16,7 @@
 
 #pragma once
 
-#ifdef ARDUINO_ARCH_ESP32
+#if defined(USE_ESP32)
 #include "lwip/inet.h"
 #include "lwip/sockets.h"
 #include "ping_sock.h"

@@ -16,7 +16,7 @@
 
 #pragma once
 
-#ifdef ARDUINO_ARCH_ESP8266
+#if defined(USE_ESP8266)
 #include "AsyncPing.h"
 
 #include "esphome/components/sensor/sensor.h"

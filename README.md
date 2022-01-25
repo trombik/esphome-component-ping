@@ -30,9 +30,11 @@ to the device when you have multiple WiFi APs.
 
 ## Status
 
-* Works on both `esp8266` and `esp32`
+* Works on `esp8266`, `esp32`, and `esp32c3`
 * the component works fine on `esp8266`. The longest uptime so far is more
   than 3 days.
+* For `esp32c3`, `framework` must be `esp-idf`
+  (see [config/ping-esp32c3.yaml](config/ping-esp32c3.yaml))
 
 ## Requirements
 

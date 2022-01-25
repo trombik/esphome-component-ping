@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifdef ARDUINO_ARCH_ESP32
+#if defined(USE_ESP32)
 
 #include <string.h>
 #include <stdlib.h>

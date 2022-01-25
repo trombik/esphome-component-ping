@@ -1,0 +1,39 @@
+substitutions:
+  my_name: ping-sensor-esp32c3
+
+esphome:
+  name: ${my_name}
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: esp-idf
+  variant: ESP32C3
+
+logger:
+
+ota:
+  password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: Ping
+    password: !secret wifi_ap_password
+
+external_components:
+  - source:
+      type: local
+      path: ../components
+
+sensor:
+  - platform: ping
+    ip_address: 8.8.8.8
+    num_attempts: 17
+    timeout: 1sec
+    loss:
+      name: Packet loss
+    latency:
+      name: Latency
+      accuracy_decimals: 3

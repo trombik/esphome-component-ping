@@ -12,6 +12,7 @@ jobs:
           - config/ping-esp32.yaml
           - config/ping.yaml
           - config/influxdb.yaml
+          - config/ping-esp32c3.yaml
     steps:
       - name: Checkout
         uses: actions/checkout@v2
