@@ -56,3 +56,6 @@ sensor:
       # this should be 3 as the value is float, unit is sec, and the raw
       # values are in ms.
       accuracy_decimals: 3
+
+    # the interval for checking the sensors. defaults to 60s.
+    update_interval: 30s
