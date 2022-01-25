@@ -1,5 +1,5 @@
 substitutions:
-  my_name: ping_sensor
+  my_name: ping-sensor
 
 esphome:
   name: ${my_name}
