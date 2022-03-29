@@ -35,6 +35,7 @@ to the device when you have multiple WiFi APs.
   than 3 days.
 * For `esp32c3`, `framework` must be `esp-idf`
   (see [config/ping-esp32c3.yaml](config/ping-esp32c3.yaml))
+* Requires `esphome` `2022.3.0` due to a breaking change
 
 ## Requirements
 
