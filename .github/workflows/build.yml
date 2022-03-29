@@ -1,8 +1,10 @@
 ---
 name: build
 on:
-  - pull_request
-  - push
+  pull_request:
+  push:
+  schedule:
+    - cron: "0 6 * * SUN"
 jobs:
   build:
     runs-on: ubuntu-latest
