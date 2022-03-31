@@ -124,7 +124,7 @@ tag, branch, or commit.
 external_components:
   - source:
       type: git
-      path: https://github.com/trombik/esphome-component-ping
+      url: https://github.com/trombik/esphome-component-ping
       ref: main
 ```
 
