@@ -57,18 +57,18 @@ CONFIG_SCHEMA = cv.Schema(
         cv.Optional(CONF_TIMEOUT, default="1sec"): cv.positive_time_period_milliseconds,
         cv.Optional(CONF_NUM_ATTEMPTS, default=13): cv.int_range(min=1, max=60),
         cv.Optional(CONF_LOSS): sensor.sensor_schema(
-            UNIT_PERCENT,
-            ICON_EMPTY,
-            0,
-            DEVICE_CLASS_EMPTY,
-            STATE_CLASS_MEASUREMENT,
+            unit_of_measurement=UNIT_PERCENT,
+            icon=ICON_EMPTY,
+            accuracy_decimals=0,
+            device_class=DEVICE_CLASS_EMPTY,
+            state_class=STATE_CLASS_MEASUREMENT,
         ),
         cv.Optional(CONF_LATENCY): sensor.sensor_schema(
-            UNIT_SECOND,
-            ICON_EMPTY,
-            0,
-            DEVICE_CLASS_EMPTY,
-            STATE_CLASS_MEASUREMENT,
+            unit_of_measurement=UNIT_SECOND,
+            icon=ICON_EMPTY,
+            accuracy_decimals=0,
+            device_class=DEVICE_CLASS_EMPTY,
+            state_class=STATE_CLASS_MEASUREMENT,
         ),
     }
 ).extend(cv.polling_component_schema("60s"))
