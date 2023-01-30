@@ -32,12 +32,12 @@ class PingSensorESP8266 : public PingSensor {
   void setup() override {
     ping.on(EACH_RESULT, [this](const AsyncPingResponse &response) {
       if (response.answer) {
-        ESP_LOGI(TAG, "%d bytes from %s: icmp_seq=%d ttl=%d time=%d ms", response.size, target.c_str(),
+        ESP_LOGV(TAG, "%d bytes from %s: icmp_seq=%d ttl=%d time=%d ms", response.size, target.c_str(),
                  response.icmp_seq, response.ttl, response.time);
 
         this->incr_total_success_time(response.time);
       } else {
-        ESP_LOGI(TAG, "no reply from %s", target.c_str());
+        ESP_LOGV(TAG, "no reply from %s", target.c_str());
       }
       return false;
     });
@@ -58,7 +58,7 @@ class PingSensorESP8266 : public PingSensor {
       this->set_latest_loss(loss * 100);
       this->set_latest_latency(mean);
 
-      ESP_LOGI(TAG, "packet loss: %0.1f %% latency: %d ms", loss * 100, mean);
+      ESP_LOGD(TAG, "packet loss: %0.1f %% latency: %d ms", loss * 100, mean);
       this->reset();
       return true;
     });

@@ -79,7 +79,7 @@ class PingSensorESP32 : public PingSensor {
     esp_ping_get_profile(hdl, ESP_PING_PROF_IPADDR, &target_addr, sizeof(target_addr));
     esp_ping_get_profile(hdl, ESP_PING_PROF_SIZE, &recv_len, sizeof(recv_len));
     esp_ping_get_profile(hdl, ESP_PING_PROF_TIMEGAP, &elapsed_time, sizeof(elapsed_time));
-    ESP_LOGI(TAG, "%d bytes from %s icmp_seq=%d ttl=%d time=%d ms", recv_len, ipaddr_ntoa((ip_addr_t *) &target_addr),
+    ESP_LOGV(TAG, "%d bytes from %s icmp_seq=%d ttl=%d time=%d ms", recv_len, ipaddr_ntoa((ip_addr_t *) &target_addr),
              seqno, ttl, elapsed_time);
     this->incr_total_success_time(elapsed_time);
   }
@@ -101,11 +101,11 @@ class PingSensorESP32 : public PingSensor {
     }
 
     if (IP_IS_V4(&target_addr)) {
-      ESP_LOGI(TAG, "--- %s ping statistics ---", inet_ntoa(*ip_2_ip4(&target_addr)));
+      ESP_LOGD(TAG, "--- %s ping statistics ---", inet_ntoa(*ip_2_ip4(&target_addr)));
     } else {
-      ESP_LOGI(TAG, "--- %s ping statistics ---", inet6_ntoa(*ip_2_ip6(&target_addr)));
+      ESP_LOGD(TAG, "--- %s ping statistics ---", inet6_ntoa(*ip_2_ip6(&target_addr)));
     }
-    ESP_LOGI(TAG, "%d packets transmitted, %d received, %d%% packet loss, total time %dms avg time %dms", transmitted,
+    ESP_LOGD(TAG, "%d packets transmitted, %d received, %d%% packet loss, total time %dms avg time %dms", transmitted,
              received, loss, total_time_ms, mean);
 
     this->set_latest_loss(loss);
@@ -119,7 +119,7 @@ class PingSensorESP32 : public PingSensor {
     ip_addr_t target_addr;
     esp_ping_get_profile(hdl, ESP_PING_PROF_SEQNO, &seqno, sizeof(seqno));
     esp_ping_get_profile(hdl, ESP_PING_PROF_IPADDR, &target_addr, sizeof(target_addr));
-    ESP_LOGI(TAG, "From %s icmp_seq=%d timeout", ipaddr_ntoa((ip_addr_t *) &target_addr), seqno);
+    ESP_LOGV(TAG, "From %s icmp_seq=%d timeout", ipaddr_ntoa((ip_addr_t *) &target_addr), seqno);
   }
 
  protected:
