@@ -23,10 +23,12 @@
 
 #define EACH_RESULT true
 #define END false
-#define TAG "ping"
 
 namespace esphome {
 namespace ping {
+
+static const char *const TAG = "ping";
+
 class PingSensorESP8266 : public PingSensor {
  public:
   void setup() override {

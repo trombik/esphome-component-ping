@@ -25,10 +25,11 @@
 
 #include "esphome/components/sensor/sensor.h"
 
-#define TAG "ping_esp32"
-
 namespace esphome {
 namespace ping {
+
+static const char *const TAG = "ping_esp32";
+
 class PingSensorESP32 : public PingSensor {
  public:
   void setup() override { init_ping(); }
