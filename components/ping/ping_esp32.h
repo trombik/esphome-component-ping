@@ -149,6 +149,7 @@ class PingSensorESP32 : public PingSensor {
 
     ping_config.target_addr = target_addr;
     ping_config.count = n_packet;
+    ping_config.task_stack_size = 2560;
 
     cbs.on_ping_success = PingSensorESP32::cb_ping_on_ping_success;
     cbs.on_ping_timeout = PingSensorESP32::cb_cmd_ping_on_ping_timeout;
